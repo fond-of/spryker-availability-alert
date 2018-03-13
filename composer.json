@@ -1,0 +1,32 @@
+{
+  "name": "fond-of-spryker/availability-alert",
+  "description": "n/a",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Rose",
+      "email": "daniel-rose@gmx.de"
+    }
+  ],
+  "require": {
+    "fond-of-spryker/availability": "dev-master"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.0",
+    "spryker/code-sniffer": "^0.9",
+    "mikey179/vfsstream": "^1.6"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "FondOfSpryker\\": "src/FondOfSpryker"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "FondOfSpryker\\": "tests/FondOfSpryker",
+      "Generated\\": "tests/Generated",
+    }
+  }
+}

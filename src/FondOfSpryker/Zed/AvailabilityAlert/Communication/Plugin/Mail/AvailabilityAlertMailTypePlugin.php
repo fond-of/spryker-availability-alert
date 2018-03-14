@@ -6,6 +6,10 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
 
+/**
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertFacade getFacade()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
+ */
 class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
     const MAIL_TYPE = 'availability alert mail';
@@ -49,6 +53,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
 
         return $this;
     }
+
     /**
      * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
@@ -60,6 +65,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
 
         return $this;
     }
+
     /**
      * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
@@ -71,6 +77,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
 
         return $this;
     }
+
     /**
      * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
@@ -82,6 +89,7 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
 
         return $this;
     }
+
     /**
      * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *

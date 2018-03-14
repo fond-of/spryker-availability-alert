@@ -6,5 +6,4 @@ use Orm\Zed\AvailabilityAlert\Persistence\Base\FosAvailabilityAlertSubscription 
 
 abstract class AbstractFosAvailabilityAlertSubscription extends BaseFosAvailabilityAlertSubscription
 {
-
 }

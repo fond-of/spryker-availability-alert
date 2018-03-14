@@ -2,10 +2,10 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert;
 
+use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
-use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
 
 class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvider
 {

@@ -29,7 +29,7 @@ class SubmitController extends AbstractController
         $this->processSubscriptionForm($subscriptionForm);
 
         return [
-            'subscriptionForm' => $subscriptionForm->createView()
+            'subscriptionForm' => $subscriptionForm->createView(),
         ];
     }
 

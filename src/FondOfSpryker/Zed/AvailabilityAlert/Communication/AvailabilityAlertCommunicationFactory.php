@@ -3,8 +3,8 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Communication;
 
 use FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertDependencyProvider;
-use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use FondOfSpryker\Zed\AvailabilityAlert\Communication\Controller\Mapper\AvailabilityAlertSubscriptionSubmitMapper;
+use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 /**
  * @method \FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()

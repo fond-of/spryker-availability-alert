@@ -3,7 +3,6 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business;
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
-use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 
 interface AvailabilityAlertFacadeInterface
 {

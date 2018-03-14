@@ -3,11 +3,11 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business;
 
 use FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertDependencyProvider;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManager;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandler;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
-use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler;
 
 /**
  * @method \FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
@@ -55,8 +55,6 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function createMailHandler()
     {
@@ -69,8 +67,6 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getMailFacade()
     {
@@ -79,8 +75,6 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 
     /**
      * @return \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface
-     *
-     * @throws \Spryker\Zed\Kernel\Exception\Container\ContainerKeyNotFoundException
      */
     protected function getAvalabilityFacade()
     {

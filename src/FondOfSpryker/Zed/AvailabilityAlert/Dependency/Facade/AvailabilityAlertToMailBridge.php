@@ -18,6 +18,7 @@ class AvailabilityAlertToMailBridge implements AvailabilityAlertToMailInterface
     {
         $this->mailFacade = $mailFacade;
     }
+
     /**
      * @param \Generated\Shared\Transfer\MailTransfer $mailTransfer
      *

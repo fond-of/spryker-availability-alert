@@ -2,12 +2,12 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 
+use FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\Mail\AvailabilityAlertMailTypePlugin;
+use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
-use FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\Mail\AvailabilityAlertMailTypePlugin;
-use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 
 class MailHandler
@@ -23,7 +23,7 @@ class MailHandler
     /**
      * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @throws \Propel\Runtime\Exception\PropelException
+     * @return void
      */
     public function sendAvailabilityAlertMail(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
     {
@@ -38,13 +38,12 @@ class MailHandler
         $mailTransfer->setType(AvailabilityAlertMailTypePlugin::MAIL_TYPE);
 
         $this->mailFacade->handleMail($mailTransfer);
-
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @return AvailabilityAlertSubscriptionTransfer
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
     protected function getAvailabilityAlertSubscriptionTransfer(
         FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
@@ -57,9 +56,9 @@ class MailHandler
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @return LocaleTransfer
+     * @return \Generated\Shared\Transfer\LocaleTransfer
      */
     protected function getLocaleTransfer(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
     {
@@ -73,11 +72,9 @@ class MailHandler
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @return ProductAbstractTransfer
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
+     * @return \Generated\Shared\Transfer\ProductAbstractTransfer
      */
     protected function getProductAbstractTransfer(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
     {

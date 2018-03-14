@@ -2,12 +2,12 @@
 
 namespace FondOfSpryker\Yves\AvailabilityAlert\Form;
 
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Spryker\Yves\Kernel\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 
 class SubscriptionForm extends AbstractType
 {
@@ -22,10 +22,11 @@ class SubscriptionForm extends AbstractType
         return 'availabilityAlertSubscriptionForm';
     }
 
-
     /**
-     * @param FormBuilderInterface $builder
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
+     *
+     * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -34,7 +35,6 @@ class SubscriptionForm extends AbstractType
         $this->addEmailField($builder)
             ->addProductField($builder);
     }
-
 
     /**
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
@@ -48,7 +48,7 @@ class SubscriptionForm extends AbstractType
             'required' => true,
             'constraints' => [
                 new NotBlank(),
-            ]
+            ],
         ]);
 
         return $this;
@@ -65,7 +65,7 @@ class SubscriptionForm extends AbstractType
             'required' => true,
             'constraints' => [
                 new NotBlank(),
-            ]
+            ],
         ]);
 
         return $this;

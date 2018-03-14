@@ -1,6 +1,8 @@
 <?php
 
-namespace FondOfSpryker\Yves\AvailabilityAlert;;
+namespace FondOfSpryker\Yves\AvailabilityAlert;
+
+;
 
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;

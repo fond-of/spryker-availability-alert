@@ -2,9 +2,10 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 
-use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
-use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
+use Exception;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionErrorTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
 {
@@ -12,7 +13,6 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
      * @var \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface
      */
     protected $subscriptionManager;
-
 
     /**
      * @param \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface $subscriptionManager
@@ -39,7 +39,7 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
             if (!$this->subscriptionManager->isAlreadySubscribed($availabilityAlertSubscriptionTransfer)) {
                 $this->subscriptionManager->subscribe($availabilityAlertSubscriptionTransfer);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $subscriptionError = $this->createSubscriptionError();
 
             $subscriptionError->setMessage($e->getMessage());
@@ -49,7 +49,6 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
         }
 
         return $subscriptionResponse;
-
     }
 
     /**

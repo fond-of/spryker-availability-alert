@@ -2,8 +2,8 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 
-use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
 
@@ -43,18 +43,14 @@ class SubscriptionManager implements SubscriptionManagerInterface
         return $subscriptionCount === 1;
     }
 
-
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return void
-     *
-     * @throws \Propel\Runtime\Exception\PropelException
      */
     public function subscribe(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    )
-    {
+    ) {
         $availabilityAlertSubscriptionTransfer->requireEmail();
         $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
         $availabilityAlertSubscriptionTransfer->requireFkLocale();

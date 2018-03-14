@@ -10,7 +10,8 @@ use Spryker\Yves\Kernel\AbstractFactory;
 class AvailabilityAlertFactory extends AbstractFactory
 {
     /**
-     * @param $idProductAbstract
+     * @param int $idProductAbstract
+     *
      * @return \Symfony\Component\Form\FormInterface
      */
     public function createSubscriptionForm($idProductAbstract)
@@ -27,7 +28,7 @@ class AvailabilityAlertFactory extends AbstractFactory
     }
 
     /**
-     * @return SubscriptionFormDataProvider
+     * @return \FondOfSpryker\Yves\AvailabilityAlert\Form\DataProvider\SubscriptionFormDataProvider
      */
     public function createSubscriptionFormDataProvider()
     {

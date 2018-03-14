@@ -12,5 +12,4 @@ interface AvailabilityAlertToMailInterface
      * @return void
      */
     public function handleMail(MailTransfer $mailTransfer);
-
 }

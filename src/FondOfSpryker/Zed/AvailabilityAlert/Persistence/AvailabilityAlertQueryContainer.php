@@ -4,7 +4,6 @@ namespace FondOfSpryker\Zed\AvailabilityAlert\Persistence;
 
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
 use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
-use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery;
 
 /**
  * @method \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertPersistenceFactory getFactory()
@@ -71,7 +70,7 @@ class AvailabilityAlertQueryContainer extends AbstractQueryContainer implements 
     }
 
     /**
-     * @return FosAvailabilityAlertSubscriptionQuery
+     * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery
      */
     public function queryCountOfSubscriberPerProductAbstract()
     {

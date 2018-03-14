@@ -10,7 +10,7 @@ use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 class SubscribersNotifier implements SubscribersNotifierInterface
 {
     /**
-     * @var AvailabilityFacadeInterface
+     * @var \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface
      */
     protected $availabilityFacade;
 
@@ -20,7 +20,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected $queryContainer;
 
     /**
-     * @var MailHandler
+     * @var \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler
      */
     protected $mailHandler;
 
@@ -30,10 +30,10 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected $minimalPercentageDifference;
 
     /**
-     * @param AvailabilityFacadeInterface $availabilityFacade
-     * @param MailHandler $mailHandler
-     * @param AvailabilityAlertQueryContainerInterface $queryContainer
-     * @param $minimalPercentageDifference
+     * @param \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface $availabilityFacade
+     * @param \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler $mailHandler
+     * @param \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface $queryContainer
+     * @param int $minimalPercentageDifference
      */
     public function __construct(
         AvailabilityFacadeInterface $availabilityFacade,
@@ -48,7 +48,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @return SubscribersNotifier
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
      */
     public function notify()
     {
@@ -66,9 +66,9 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @return SubscribersNotifier
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
      */
     protected function sendNotification(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
     {
@@ -82,16 +82,15 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-     * @param $countOfSubscriberPerProductAbstract
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param array $countOfSubscriberPerProductAbstract
      *
      * @return bool
      */
     protected function canSendNotification(
         FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription,
         $countOfSubscriberPerProductAbstract
-    )
-    {
+    ) {
         $percentageDifference = $this->calculatePercentageDifference(
             $fosAvailabilityAlertSubscription,
             $countOfSubscriberPerProductAbstract
@@ -101,8 +100,8 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-     * @param $countOfSubscriberPerProductAbstract
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param array $countOfSubscriberPerProductAbstract
      *
      * @return float|int
      */
@@ -118,7 +117,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @param FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
      * @return int
      */
@@ -134,7 +133,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @return FosAvailabilityAlertSubscription[]|\Propel\Runtime\Collection\ObjectCollection
+     * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription[]|\Propel\Runtime\Collection\ObjectCollection
      */
     protected function getSubscritpions()
     {

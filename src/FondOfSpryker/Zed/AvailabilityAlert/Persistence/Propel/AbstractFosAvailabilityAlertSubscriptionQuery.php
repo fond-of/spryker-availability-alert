@@ -6,5 +6,4 @@ use Orm\Zed\ProductReview\Persistence\Base\FosAvailabilityAlertSubscriptionQuery
 
 abstract class AbstractFosAvailabilityAlertSubscriptionQuery extends BaseFosAvailabilityAlertSubscriptionQuery
 {
-
 }

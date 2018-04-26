@@ -4,6 +4,7 @@ namespace FondOfSpryker\Zed\AvailabilityAlert;
 
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailBridge;
+use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
@@ -12,6 +13,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     const FACADE_LOCALE = 'FACADE_LOCALE';
     const FACADE_MAIL = 'FACADE_MAIL';
     const FACADE_AVAILABILITY = 'FACADE_AVAILABILITY';
+    const FACADE_PRODUCT = 'FACADE_PRODUCT';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -22,6 +24,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     {
         $container = $this->addMailFacade($container);
         $container = $this->addAvailabilityFacade($container);
+        $container = $this->addProductFacade($container);
 
         return $container;
     }
@@ -34,6 +37,19 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     public function provideCommunicationLayerDependencies(Container $container)
     {
         $container = $this->addLocaleFacade($container);
+
+        return $container;
+    }
+
+    /**
+     * @param Container $container
+     * @return Container
+     */
+    protected function addProductFacade(Container $container): Container
+    {
+        $container[static::FACADE_PRODUCT] = function (Container $container) {
+            return new AvailabilityAlertToProductBridge($container->getLocator()->product()->facade());
+        };
 
         return $container;
     }

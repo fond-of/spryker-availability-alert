@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: paf
- * Date: 26.04.18
- * Time: 11:07
- */
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade;
 

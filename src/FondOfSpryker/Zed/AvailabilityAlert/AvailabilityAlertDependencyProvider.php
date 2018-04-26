@@ -42,8 +42,9 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     }
 
     /**
-     * @param Container $container
-     * @return Container
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
      */
     protected function addProductFacade(Container $container): Container
     {

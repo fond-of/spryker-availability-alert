@@ -7,7 +7,6 @@ use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManager;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandler;
-use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**

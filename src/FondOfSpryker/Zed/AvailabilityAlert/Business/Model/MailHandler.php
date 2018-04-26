@@ -7,7 +7,6 @@ use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMai
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\LocalizedAttributesTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;

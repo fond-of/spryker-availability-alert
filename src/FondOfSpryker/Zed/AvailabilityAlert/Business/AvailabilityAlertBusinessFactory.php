@@ -42,9 +42,10 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     public function createSubscribersNotifer()
     {
         $this->getAvalabilityFacade();
-            $this->createMailHandler();
-            $this->getQueryContainer();
-            $this->getConfig()->getMinimalPercentageDifference();
+        $this->createMailHandler();
+        $this->getQueryContainer();
+        $this->getConfig()->getMinimalPercentageDifference();
+
         return new SubscribersNotifier(
             $this->getAvalabilityFacade(),
             $this->createMailHandler(),
@@ -59,7 +60,8 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     protected function createMailHandler()
     {
         $mailHandler = new MailHandler(
-            $this->getMailFacade()
+            $this->getMailFacade(),
+            $this->getProductFacade()
         );
 
         return $mailHandler;
@@ -79,5 +81,13 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     protected function getAvalabilityFacade()
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_AVAILABILITY);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface
+     */
+    protected function getProductFacade()
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_PRODUCT);
     }
 }

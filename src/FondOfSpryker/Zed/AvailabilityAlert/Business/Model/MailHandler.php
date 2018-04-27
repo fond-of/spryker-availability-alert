@@ -7,9 +7,12 @@ use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMai
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
+use Generated\Shared\Transfer\LocalizedAttributesTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
+use Generated\Shared\Transfer\ProductUrlTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
+use Generated\Shared\Transfer\PriceProductTransfer;
 
 class MailHandler
 {
@@ -33,12 +36,33 @@ class MailHandler
         $availabilityAlertSubscriptionTransfer = $this->getAvailabilityAlertSubscriptionTransfer($fosAvailabilityAlertSubscription);
         $localeTransfer = $this->getLocaleTransfer($fosAvailabilityAlertSubscription);
         $productAbstractTransfer = $this->getProductAbstractTransfer($fosAvailabilityAlertSubscription);
+        $productUrlTransfer = $this->productFacade->getProductUrl($productAbstractTransfer);
+        $priceProductTransfer = $productAbstractTransfer->getPrices();
+
+        /** @var LocalizedUrlTransfer $localizedUrlTransfer */
+        foreach($productUrlTransfer->getUrls() as $localizedUrlTransfer) {
+            if ($localizedUrlTransfer->getLocale()->getIdLocale() == $localeTransfer->getIdLocale()) {
+                $currentLocaleProductUrlTransfer = $localizedUrlTransfer;
+
+                break;
+            }
+        }
+
+        /** @var PriceProductTransfer $transfer */
+        foreach($priceProductTransfer as $transfer) {
+            /** @var MoneyValueTransfer $moneyValueTransfer */
+            $moneyValueTransfer = $transfer->getMoneyValue();
+
+            break;
+        }
 
         $mailTransfer = new MailTransfer();
         $mailTransfer->setAvailabilityAlertSubscription($availabilityAlertSubscriptionTransfer);
         $mailTransfer->setLocale($localeTransfer);
         $mailTransfer->setProductAbstract($productAbstractTransfer);
         $mailTransfer->setType(AvailabilityAlertMailTypePlugin::MAIL_TYPE);
+        $mailTransfer->setLocalizedUrl($currentLocaleProductUrlTransfer);
+        $mailTransfer->setMoneyValue($moneyValueTransfer);
 
         $this->mailFacade->handleMail($mailTransfer);
     }

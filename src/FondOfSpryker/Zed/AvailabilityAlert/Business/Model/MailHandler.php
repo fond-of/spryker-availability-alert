@@ -7,12 +7,9 @@ use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMai
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\LocaleTransfer;
-use Generated\Shared\Transfer\LocalizedAttributesTransfer;
 use Generated\Shared\Transfer\MailTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
-use Generated\Shared\Transfer\ProductUrlTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
-use Generated\Shared\Transfer\PriceProductTransfer;
 
 class MailHandler
 {
@@ -39,8 +36,8 @@ class MailHandler
         $productUrlTransfer = $this->productFacade->getProductUrl($productAbstractTransfer);
         $priceProductTransfer = $productAbstractTransfer->getPrices();
 
-        /** @var LocalizedUrlTransfer $localizedUrlTransfer */
-        foreach($productUrlTransfer->getUrls() as $localizedUrlTransfer) {
+        /** @var \Generated\Shared\Transfer\LocalizedUrlTransfer $localizedUrlTransfer */
+        foreach ($productUrlTransfer->getUrls() as $localizedUrlTransfer) {
             if ($localizedUrlTransfer->getLocale()->getIdLocale() == $localeTransfer->getIdLocale()) {
                 $currentLocaleProductUrlTransfer = $localizedUrlTransfer;
 
@@ -48,9 +45,9 @@ class MailHandler
             }
         }
 
-        /** @var PriceProductTransfer $transfer */
-        foreach($priceProductTransfer as $transfer) {
-            /** @var MoneyValueTransfer $moneyValueTransfer */
+        /** @var \Generated\Shared\Transfer\PriceProductTransfer $transfer */
+        foreach ($priceProductTransfer as $transfer) {
+            /** @var \Generated\Shared\Transfer\MoneyValueTransfer $moneyValueTransfer */
             $moneyValueTransfer = $transfer->getMoneyValue();
 
             break;

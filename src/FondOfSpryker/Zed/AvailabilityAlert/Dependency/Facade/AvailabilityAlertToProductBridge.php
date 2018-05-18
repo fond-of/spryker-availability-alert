@@ -2,8 +2,8 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade;
 
-use Spryker\Zed\Product\Business\ProductFacade;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
+use Spryker\Zed\Product\Business\ProductFacade;
 
 class AvailabilityAlertToProductBridge implements AvailabilityAlertToProductInterface
 {

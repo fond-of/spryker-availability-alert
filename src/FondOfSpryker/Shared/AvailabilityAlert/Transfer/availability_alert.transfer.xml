@@ -27,6 +27,8 @@
     <transfer name="Mail">
         <property name="availabilityAlertSubscription" type="AvailabilityAlertSubscription" />
         <property name="productAbstract" type="ProductAbstract" />
+        <property name="localizedUrl" type="LocalizedUrl" />
+        <property name="moneyValue" type="MoneyValue" />
     </transfer>
 </transfers>
 

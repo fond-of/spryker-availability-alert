@@ -74,9 +74,9 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     {
         $this->mailHandler->sendAvailabilityAlertMail($fosAvailabilityAlertSubscription);
 
-        /*$fosAvailabilityAlertSubscription->setSentAt(new \DateTime())
+        $fosAvailabilityAlertSubscription->setSentAt(new \DateTime())
             ->setStatus(FosAvailabilityAlertSubscriptionTableMap::COL_STATUS_NOTIFIED)
-            ->save();*/
+            ->save();
 
         return $this;
     }

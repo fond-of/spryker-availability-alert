@@ -54,7 +54,7 @@ class SubmitController extends AbstractController
         if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess()) {
             return true;
         }
-        dump($availabilityAlertSubscriptionResponseTransfer->getErrors());
+
         $error = new FormError($availabilityAlertSubscriptionResponseTransfer->getErrors()[0]->getMessage());
 
         $form->addError($error);

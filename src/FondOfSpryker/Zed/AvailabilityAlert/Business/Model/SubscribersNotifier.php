@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 
+use DateTime;
 use FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
@@ -74,7 +75,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     {
         $this->mailHandler->sendAvailabilityAlertMail($fosAvailabilityAlertSubscription);
 
-        $fosAvailabilityAlertSubscription->setSentAt(new \DateTime())
+        $fosAvailabilityAlertSubscription->setSentAt(new DateTime())
             ->setStatus(FosAvailabilityAlertSubscriptionTableMap::COL_STATUS_NOTIFIED)
             ->save();
 

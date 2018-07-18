@@ -97,7 +97,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
             $countOfSubscriberPerProductAbstract
         );
 
-        return $percentageDifference < $this->minimalPercentageDifference;
+        return $percentageDifference > $this->minimalPercentageDifference;
     }
 
     /**

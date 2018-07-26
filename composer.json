@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=7.1",
-    "spryker/availability": "^5.0.0",
+    "spryker/availability": "^6.0.0",
     "spryker/product": "^6.0.0"
   },
   "require-dev": {

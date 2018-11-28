@@ -26,7 +26,7 @@ class SubmitController extends AbstractController
             ->createSubscriptionForm($idProductAbstract)
             ->handleRequest($parentRequest);
 
-        $this->processSubscriptionForm($subscriptionForm);
+        $result = $this->processSubscriptionForm($subscriptionForm, $request);
 
         return [
             'subscriptionForm' => $subscriptionForm->createView(),
@@ -35,10 +35,11 @@ class SubmitController extends AbstractController
 
     /**
      * @param \Symfony\Component\Form\FormInterface $form
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return bool
      */
-    protected function processSubscriptionForm(FormInterface $form)
+    protected function processSubscriptionForm(FormInterface $form, Request $request): bool
     {
         if (!$form->isSubmitted() || !$form->isValid()) {
             return false;
@@ -52,6 +53,10 @@ class SubmitController extends AbstractController
             );
 
         if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess()) {
+            $request->getSession()
+                ->getFlashBag()
+                ->add('availability-alert-success', 'checkout.step.success.title');
+
             return true;
         }
 

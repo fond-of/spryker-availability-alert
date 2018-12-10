@@ -26,7 +26,7 @@ class SubmitController extends AbstractController
             ->createSubscriptionForm($idProductAbstract)
             ->handleRequest($parentRequest);
 
-        $result = $this->processSubscriptionForm($subscriptionForm, $request);
+        $this->processSubscriptionForm($subscriptionForm, $request);
 
         return [
             'subscriptionForm' => $subscriptionForm->createView(),

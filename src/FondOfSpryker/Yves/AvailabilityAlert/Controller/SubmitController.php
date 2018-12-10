@@ -55,7 +55,7 @@ class SubmitController extends AbstractController
         if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess()) {
             $request->getSession()
                 ->getFlashBag()
-                ->add('availability-alert-success', 'checkout.step.success.title');
+                ->add('availability-alert-success', 'availibility_alert.feedback.success');
 
             return true;
         }

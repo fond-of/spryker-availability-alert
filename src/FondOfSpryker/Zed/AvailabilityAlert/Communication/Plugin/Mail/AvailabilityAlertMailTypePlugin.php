@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\Mail;
 
+use FondOfSpryker\Zed\Mail\MailConfig;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
@@ -13,6 +14,22 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
 class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
     const MAIL_TYPE = 'availability alert mail';
+
+    /**
+     * @var \FondOfSpryker\Zed\Mail\MailConfig
+     */
+    protected $config;
+
+    /**
+     * OrderConfirmationMailTypePlugin constructor.
+     *
+     * @param \FondOfSpryker\Zed\Mail\MailConfig $config
+     */
+    public function __construct(MailConfig $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * @return string
      */
@@ -93,11 +110,11 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
     /**
      * @param \Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface $mailBuilder
      *
-     * @return $this
+     * @return \FondOfSpryker\Zed\Oms\Communication\Plugin\Mail\OrderConfirmationMailTypePlugin
      */
-    protected function setSender(MailBuilderInterface $mailBuilder)
+    protected function setSender(MailBuilderInterface $mailBuilder): self
     {
-        $mailBuilder->setSender('mail.sender.email', 'mail.sender.name');
+        $mailBuilder->setSender($this->config->getSenderEmail(), $this->config->getSenderName());
 
         return $this;
     }

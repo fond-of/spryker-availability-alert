@@ -6,6 +6,7 @@
     <transfer name="AvailabilityAlertSubscription">
         <property name="fkProductAbstract" type="int" />
         <property name="fkLocale" type="int" />
+        <property name="fkStore" type="int" />
         <property name="email" type="string" />
     </transfer>
 
@@ -16,6 +17,7 @@
     <transfer name="AvailabilityAlertSubscriptionRequest">
         <property name="idProductAbstract" type="int" />
         <property name="localeName" type="string" />
+        <property name="store" type="string" />
         <property name="email" type="string" />
     </transfer>
 

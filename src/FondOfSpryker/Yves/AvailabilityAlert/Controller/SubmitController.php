@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Yves\AvailabilityAlert\Controller;
 
+use Spryker\Shared\Kernel\Store;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
@@ -44,12 +45,13 @@ class SubmitController extends AbstractController
         if (!$form->isSubmitted() || !$form->isValid()) {
             return false;
         }
-
+        
         $availabilityAlertSubscriptionResponseTransfer = $this->getFactory()
             ->getAvailabilityAlertClient()
             ->subscribe(
                 $this->getSubscriptionFormData($form)
                     ->setLocaleName($this->getLocale())
+                    ->setStore(Store::getInstance()->getStoreName())
             );
 
         if ($availabilityAlertSubscriptionResponseTransfer->getIsSuccess()) {

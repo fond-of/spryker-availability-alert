@@ -51,9 +51,11 @@ class SubscriptionManager implements SubscriptionManagerInterface
     public function subscribe(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ) {
+        
         $availabilityAlertSubscriptionTransfer->requireEmail();
         $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
         $availabilityAlertSubscriptionTransfer->requireFkLocale();
+        $availabilityAlertSubscriptionTransfer->getFkStore();
 
         $availabilityAlertSubscriptionEntity = $this->queryContainer
             ->querySubscriptionByEmailAndIdProductAbstract(
@@ -69,6 +71,7 @@ class SubscriptionManager implements SubscriptionManagerInterface
 
         $availabilityAlertSubscriptionEntity->setStatus(FosAvailabilityAlertSubscriptionTableMap::COL_STATUS_PENDING)
             ->setFkLocale($availabilityAlertSubscriptionTransfer->getFkLocale())
+            ->setFkStore($availabilityAlertSubscriptionTransfer->getFkStore())
             ->setSentAt(null)
             ->save();
     }

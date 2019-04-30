@@ -17,7 +17,10 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
      */
     public function createAvailabilityAlertSubscriptionSubmitMapper()
     {
-        return new AvailabilityAlertSubscriptionSubmitMapper($this->getLocaleFacade());
+        return new AvailabilityAlertSubscriptionSubmitMapper(
+            $this->getLocaleFacade(),
+            $this->getStoreFacade()
+        );
     }
 
     /**
@@ -26,5 +29,13 @@ class AvailabilityAlertCommunicationFactory extends AbstractCommunicationFactory
     protected function getLocaleFacade()
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_LOCALE);
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface
+     */
+    protected function getStoreFacade()
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_STORE);
     }
 }

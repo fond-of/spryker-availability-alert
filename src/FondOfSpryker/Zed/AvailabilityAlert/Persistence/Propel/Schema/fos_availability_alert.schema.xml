@@ -13,6 +13,7 @@
         <column name="email" type="VARCHAR" size="255" required="true"/>
         <column name="sent_at" type="TIMESTAMP" defaultValue="NULL"/>
         <column name="status" required="true" type="ENUM" valueSet="pending, notified" defaultValue="pending"/>
+        <column name="fk_store" required="true" type="INTEGER"/>
 
         <behavior name="timestampable"/>
 
@@ -30,6 +31,10 @@
             <reference local="fk_product_abstract" foreign="id_product_abstract"/>
         </foreign-key>
 
+        <foreign-key name="fos_availability_-fk_store" foreignTable="spy_store">
+            <reference foreign="id_store" local="fk_store"/>
+        </foreign-key>
+
         <index name="fos_availability_alert_subscription_alert-fk_locale">
             <index-column name="fk_locale"/>
         </index>
@@ -37,6 +42,7 @@
         <unique name="fos_availability_alert_subscription-fk_product_abstract-email">
             <unique-column name="fk_product_abstract"/>
             <unique-column name="email"/>
+            <unique-column name="fk_store"/>
         </unique>
     </table>
 </database>

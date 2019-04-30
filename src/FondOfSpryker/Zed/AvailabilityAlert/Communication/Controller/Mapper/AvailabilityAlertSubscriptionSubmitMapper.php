@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Communication\Controller\Mapper;
 
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
@@ -14,11 +15,19 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     protected $localeFacade;
 
     /**
+     * @var \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface
+     */
+    protected $storeFacade;
+
+    /**
      * @param \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface $localeFacade
      */
-    public function __construct(AvailabilityAlertToLocaleInterface $localeFacade)
-    {
+    public function __construct(
+        AvailabilityAlertToLocaleInterface $localeFacade,
+        AvailabilityAlertToStoreInterface $storeFacade
+    ) {
         $this->localeFacade = $localeFacade;
+        $this->storeFacade = $storeFacade;
     }
 
     /**
@@ -29,6 +38,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     public function mapRequestTransfer(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
     ) {
+
         $this->assertAvailabilityAlertSubscriptionRequestTransfer($availabilityAlertSubscriptionRequestTransfer);
 
         $availabilityAlertSubscriptionTransfer = new AvailabilityAlertSubscriptionTransfer();
@@ -36,8 +46,9 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
         $availabilityAlertSubscriptionTransfer
             ->fromArray($availabilityAlertSubscriptionRequestTransfer->modifiedToArray(), true)
             ->setFkProductAbstract($availabilityAlertSubscriptionRequestTransfer->getIdProductAbstract())
-            ->setFkLocale($this->getIdLocale($availabilityAlertSubscriptionRequestTransfer));
-
+            ->setFkLocale($this->getIdLocale($availabilityAlertSubscriptionRequestTransfer))
+            ->setFkStore($this->getIdStore($availabilityAlertSubscriptionRequestTransfer));
+        
         return $availabilityAlertSubscriptionTransfer;
     }
 
@@ -49,8 +60,19 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     protected function getIdLocale(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
     ) {
-        return $this->localeFacade->getLocale($availabilityAlertSubscriptionRequestTransfer->getLocaleName())
-            ->getIdLocale();
+        return $this->localeFacade->getLocale($availabilityAlertSubscriptionRequestTransfer->getLocaleName())->getIdLocale();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
+     *
+     * @return string
+     */
+    protected function getIdStore(
+        AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
+    ) {
+
+        return $this->storeFacade->getStore($availabilityAlertSubscriptionRequestTransfer->getStore())->getIdStore();
     }
 
     /**

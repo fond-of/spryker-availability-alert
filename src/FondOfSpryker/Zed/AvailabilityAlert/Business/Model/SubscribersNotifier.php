@@ -6,6 +6,8 @@ use DateTime;
 use FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
+use Orm\Zed\Store\Persistence\SpyStoreQuery;
+use Spryker\Shared\Kernel\Store;
 use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 
 class SubscribersNotifier implements SubscribersNotifierInterface
@@ -54,7 +56,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     public function notify()
     {
         $countOfSubscriberPerProductAbstract = $this->getCountOfSubscriberPerProductAbstract();
-
+        
         foreach ($this->getSubscritpions() as $fosAvailabilityAlertSubscription) {
             if (!$this->canSendNotification($fosAvailabilityAlertSubscription, $countOfSubscriberPerProductAbstract)) {
                 continue;
@@ -138,7 +140,10 @@ class SubscribersNotifier implements SubscribersNotifierInterface
      */
     protected function getSubscritpions()
     {
-        return $this->queryContainer->querySubscriptionsByStatus(0)
+        $idStore = $this->getIdStorebyStoreName(Store::getInstance()->getStoreName());
+
+        return $this->queryContainer
+            ->querySubscriptionsByIdStoreAndStatus($idStore, 0)
             ->find();
     }
 
@@ -150,5 +155,24 @@ class SubscribersNotifier implements SubscribersNotifierInterface
         return $this->queryContainer->queryCountOfSubscriberPerProductAbstract()
             ->find()
             ->toKeyValue(FosAvailabilityAlertSubscriptionTableMap::COL_FK_PRODUCT_ABSTRACT, 'count_of_subscriber');
+    }
+
+    /**
+     * @param string $storeName
+     *
+     * @return int
+     */
+    protected function getIdStorebyStoreName(string $storeName): int
+    {
+
+        $storeEntity = SpyStoreQuery::create()
+            ->filterByName($storeName)
+            ->findOne();
+
+        if ($storeEntity == null) {
+            return 0;
+        }
+        
+        return $storeEntity->getIdStore();
     }
 }

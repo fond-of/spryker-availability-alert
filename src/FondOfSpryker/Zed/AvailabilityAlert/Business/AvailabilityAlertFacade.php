@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertBusinessFactory getFactory()
+ * @method AvailabilityAlertBusinessFactory getFactory()
  */
 class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAlertFacadeInterface
 {
@@ -61,11 +61,11 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
      *
      * @return bool
      */
-    public function preCheckSubscribersNotifierProductAttributeReleaseDateInFuture(
+    public function preCheckSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmpty(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ): bool {
         return $this->getFactory()
-            ->createSubscribersNotifierProductAttributeReleaseDateInFutureCheck()
-            ->checkHasProductAttributeReleaseDateInFuture($availabilityAlertSubscriptionTransfer);
+            ->createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck()
+            ->checkHasProductAttributeReleaseDateInPastOrIsEmpty($availabilityAlertSubscriptionTransfer);
     }
 }

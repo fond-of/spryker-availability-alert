@@ -8,6 +8,8 @@ use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToPro
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 
+use function count;
+
 class SubscribersNotifierHasProductAssignedStoresCheck implements SubscribersNotifierHasProductAssignedStoresCheckInterface
 {
     /**
@@ -31,11 +33,11 @@ class SubscribersNotifierHasProductAssignedStoresCheck implements SubscribersNot
     public function checkHasProductAssignedStores(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool
     {
         $abstractProductTransfer = $this->getProductAbstractTransfer($availabilityAlertSubscriptionTransfer);
-        if ($abstractProductTransfer) {
-            return $this->hasAbstractProductAssignedStores($abstractProductTransfer);
+        if ($abstractProductTransfer === null) {
+            return false;
         }
 
-        return false;
+        return $this->hasAbstractProductAssignedStores($abstractProductTransfer);
     }
 
     /**
@@ -55,6 +57,6 @@ class SubscribersNotifierHasProductAssignedStoresCheck implements SubscribersNot
      */
     protected function hasAbstractProductAssignedStores(ProductAbstractTransfer $productAbstractTransfer): bool
     {
-        return count($productAbstractTransfer->getStoreRelation()->getIdStores()) !== 0;
+        return count($productAbstractTransfer->getStoreRelation()->getIdStores()) > 0;
     }
 }

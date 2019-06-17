@@ -10,7 +10,9 @@ use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToPro
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
 
-class SubscribersNotifierProductAttributeReleaseDateInFutureCheck implements SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface
+use function array_key_exists;
+
+class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck implements SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
 {
     protected const PRODUCT_ATTRIBUTE_RELEASE_DATE = 'release_date';
 
@@ -32,18 +34,18 @@ class SubscribersNotifierProductAttributeReleaseDateInFutureCheck implements Sub
      *
      * @return bool
      */
-    public function checkHasProductAttributeReleaseDateInFuture(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool
+    public function checkHasProductAttributeReleaseDateInPastOrIsEmpty(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool
     {
         $productAbstractTransfer = $this->getProductAbstractTransfer($availabilityAlertSubscriptionTransfer);
         if ($productAbstractTransfer === null) {
             return false;
         }
 
-        if ($this->hasProductAttributeReleaseDate($productAbstractTransfer)) {
-            return $this->isDateTimeInFuture($this->getProductAttributeReleaseDate($productAbstractTransfer)) === false;
+        if (!$this->hasProductAttributeReleaseDate($productAbstractTransfer)) {
+            return true;
         }
 
-        return true;
+        return $this->isDateTimeInPastOrEqual($this->getProductAttributeReleaseDate($productAbstractTransfer));
     }
 
     /**
@@ -77,9 +79,9 @@ class SubscribersNotifierProductAttributeReleaseDateInFutureCheck implements Sub
      *
      * @return bool
      */
-    protected function isDateTimeInFuture(DateTimeInterface $compareDateTime): bool
+    protected function isDateTimeInPastOrEqual(DateTimeInterface $compareDateTime): bool
     {
-        return $compareDateTime < new DateTimeImmutable();
+        return $compareDateTime <= new DateTimeImmutable();
     }
 
     /**

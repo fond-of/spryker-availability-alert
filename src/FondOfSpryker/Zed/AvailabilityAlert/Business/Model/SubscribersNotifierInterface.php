@@ -5,7 +5,7 @@ namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 interface SubscribersNotifierInterface
 {
     /**
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface
      */
-    public function notify();
+    public function notify(): SubscribersNotifierInterface;
 }

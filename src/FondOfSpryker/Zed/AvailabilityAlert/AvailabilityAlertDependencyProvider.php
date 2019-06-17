@@ -3,7 +3,7 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert;
 
 use FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierHasProductAssignedStoresPreCheckPlugin;
-use FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeReleaseDateInFuturePreCheckPlugin;
+use FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleBridge;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailBridge;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductBridge;
@@ -139,7 +139,7 @@ class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvid
     {
         return [
             new SubscribersNotifierHasProductAssignedStoresPreCheckPlugin(),
-            new SubscribersNotifierProductAttributeReleaseDateInFuturePreCheckPlugin(),
+            new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin(),
         ];
     }
 }

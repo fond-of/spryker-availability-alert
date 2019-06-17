@@ -6,12 +6,12 @@ namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
 
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
-interface SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface
+interface SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
 {
     /**
      * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
      *
      * @return bool
      */
-    public function checkHasProductAttributeReleaseDateInFuture(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool;
+    public function checkHasProductAttributeReleaseDateInPastOrIsEmpty(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer): bool;
 }

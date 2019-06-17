@@ -72,9 +72,10 @@ class SubscribersNotifier implements SubscribersNotifierInterface
                 continue;
             }
 
-            $availabilityAlertSubscription = $this->createAvailabilityAlertSubscriptionTransfer($fosAvailabilityAlertSubscription);
+            $isPassed = $this->subscribersNotifierPluginExecutor->executePreCheckPlugins(
+                $this->createAvailabilityAlertSubscriptionTransfer($fosAvailabilityAlertSubscription)
+            );
 
-            $isPassed = $this->subscribersNotifierPluginExecutor->executePreCheckPlugins($availabilityAlertSubscription);
             if ($isPassed === false) {
                 continue;
             }
@@ -102,9 +103,11 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     /**
      * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
+     * @throws
+     *
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
      */
-    protected function sendNotification(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
+    protected function sendNotification(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription): SubscribersNotifier
     {
         $this->mailHandler->sendAvailabilityAlertMail($fosAvailabilityAlertSubscription);
 
@@ -124,7 +127,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected function canSendNotification(
         FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription,
         $countOfSubscriberPerProductAbstract
-    ) {
+    ): bool {
         $percentageDifference = $this->calculatePercentageDifference(
             $fosAvailabilityAlertSubscription,
             $countOfSubscriberPerProductAbstract
@@ -157,7 +160,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
      */
     protected function getAvailability(
         FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-    ) {
+    ): ?int {
         $productAbstractAvailability = $this->availabilityFacade->getProductAbstractAvailability(
             $fosAvailabilityAlertSubscription->getFkProductAbstract(),
             $fosAvailabilityAlertSubscription->getFkLocale()
@@ -171,7 +174,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
      */
     protected function getSubscritpions()
     {
-        $idStore = $this->getIdStorebyStoreName(Store::getInstance()->getStoreName());
+        $idStore = $this->getIdStoreByStoreName(Store::getInstance()->getStoreName());
 
         return $this->queryContainer
             ->querySubscriptionsByIdStoreAndStatus($idStore, 0)
@@ -179,9 +182,9 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     }
 
     /**
-     * @return array
+     * @return int[]
      */
-    protected function getCountOfSubscriberPerProductAbstract()
+    protected function getCountOfSubscriberPerProductAbstract(): array
     {
         return $this->queryContainer->queryCountOfSubscriberPerProductAbstract()
             ->find()
@@ -191,15 +194,17 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     /**
      * @param string $storeName
      *
+     * @throws
+     *
      * @return int
      */
-    protected function getIdStorebyStoreName(string $storeName): int
+    protected function getIdStoreByStoreName(string $storeName): int
     {
         $storeEntity = SpyStoreQuery::create()
             ->filterByName($storeName)
             ->findOne();
 
-        if ($storeEntity == null) {
+        if ($storeEntity === null) {
             return 0;
         }
         

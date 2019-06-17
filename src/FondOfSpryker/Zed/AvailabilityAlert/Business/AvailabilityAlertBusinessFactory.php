@@ -2,13 +2,14 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business;
 
+use FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig;
 use FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertDependencyProvider;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheck;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface;
-use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInFutureCheck;
-use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutor;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface;
@@ -18,12 +19,13 @@ use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandle
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandlerInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface;
 use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
- * @method \FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
- * @method \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
+ * @method AvailabilityAlertConfig getConfig()
+ * @method AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 {
@@ -93,11 +95,11 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
      */
-    public function createSubscribersNotifierProductAttributeReleaseDateInFutureCheck(): SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface
+    public function createSubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(): SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
     {
-        return new SubscribersNotifierProductAttributeReleaseDateInFutureCheck(
+        return new SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck(
             $this->getProductFacade()
         );
     }

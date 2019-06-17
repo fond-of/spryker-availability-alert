@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade;
 
 use Generated\Shared\Transfer\ProductAbstractTransfer;
+use Generated\Shared\Transfer\ProductUrlTransfer;
 
 interface AvailabilityAlertToProductInterface
 {
@@ -13,7 +14,7 @@ interface AvailabilityAlertToProductInterface
      *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer|null
      */
-    public function findProductAbstractById($idProductAbstract);
+    public function findProductAbstractById($idProductAbstract): ?ProductAbstractTransfer;
 
     /**
      * @see \Spryker\Zed\Product\Business\ProductFacadeInterface
@@ -22,5 +23,5 @@ interface AvailabilityAlertToProductInterface
      *
      * @return \Generated\Shared\Transfer\ProductUrlTransfer
      */
-    public function getProductUrl(ProductAbstractTransfer $productAbstractTransfer);
+    public function getProductUrl(ProductAbstractTransfer $productAbstractTransfer): ProductUrlTransfer;
 }

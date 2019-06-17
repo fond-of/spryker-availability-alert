@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business;
 
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -19,7 +20,7 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
      */
     public function subscribe(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ) {
+    ): AvailabilityAlertSubscriptionResponseTransfer {
         return $this->getFactory()->createSubscriptionRequestHandler()
             ->processAvailabilityAlertSubscription($availabilityAlertSubscriptionTransfer);
     }
@@ -29,8 +30,42 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
      *
      * @return void
      */
-    public function notifySubscribers()
+    public function notifySubscribers(): void
     {
         $this->getFactory()->createSubscribersNotifer()->notify();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return bool
+     */
+    public function preCheckSubscribersNotifierHasProductAssignedStores(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+    ): bool {
+        return $this->getFactory()
+            ->createSubscribersNotifierHasProductAssignedStoresCheck()
+            ->checkHasProductAssignedStores($availabilityAlertSubscriptionTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return bool
+     */
+    public function preCheckSubscribersNotifierProductAttributeReleaseDateInFuture(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+    ): bool {
+        return $this->getFactory()
+            ->createSubscribersNotifierProductAttributeReleaseDateInFutureCheck()
+            ->checkHasProductAttributeReleaseDateInFuture($availabilityAlertSubscriptionTransfer);
     }
 }

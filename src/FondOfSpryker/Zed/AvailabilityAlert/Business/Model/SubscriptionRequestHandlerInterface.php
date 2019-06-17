@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 interface SubscriptionRequestHandlerInterface
@@ -13,5 +14,5 @@ interface SubscriptionRequestHandlerInterface
      */
     public function processAvailabilityAlertSubscription(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    );
+    ): AvailabilityAlertSubscriptionResponseTransfer;
 }

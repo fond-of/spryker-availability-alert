@@ -3,21 +3,20 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade;
 
 use Generated\Shared\Transfer\ProductAbstractTransfer;
-use Spryker\Zed\Product\Business\ProductFacade;
+use Generated\Shared\Transfer\ProductUrlTransfer;
+use Spryker\Zed\Product\Business\ProductFacadeInterface;
 
 class AvailabilityAlertToProductBridge implements AvailabilityAlertToProductInterface
 {
     /**
-     * @var \Spryker\Zed\Product\Business\ProductFacade
+     * @var \Spryker\Zed\Product\Business\ProductFacadeInterface
      */
     protected $productFacade;
 
     /**
-     * AvailabilityAlertToProductBridge constructor.
-     *
-     * @param \Spryker\Zed\Product\Business\ProductFacade $productFacade
+     * @param \Spryker\Zed\Product\Business\ProductFacadeInterface $productFacade
      */
-    public function __construct(ProductFacade $productFacade)
+    public function __construct(ProductFacadeInterface $productFacade)
     {
         $this->productFacade = $productFacade;
     }
@@ -27,7 +26,7 @@ class AvailabilityAlertToProductBridge implements AvailabilityAlertToProductInte
      *
      * @return \Generated\Shared\Transfer\ProductAbstractTransfer|null
      */
-    public function findProductAbstractById($idProductAbstract)
+    public function findProductAbstractById($idProductAbstract): ?ProductAbstractTransfer
     {
         return $this->productFacade->findProductAbstractById($idProductAbstract);
     }
@@ -37,7 +36,7 @@ class AvailabilityAlertToProductBridge implements AvailabilityAlertToProductInte
      *
      * @return \Generated\Shared\Transfer\ProductUrlTransfer
      */
-    public function getProductUrl(ProductAbstractTransfer $productAbstractTransfer)
+    public function getProductUrl(ProductAbstractTransfer $productAbstractTransfer): ProductUrlTransfer
     {
         return $this->productFacade->getProductUrl($productAbstractTransfer);
     }

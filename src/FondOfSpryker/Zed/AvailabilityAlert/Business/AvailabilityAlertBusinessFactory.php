@@ -5,8 +5,20 @@ namespace FondOfSpryker\Zed\AvailabilityAlert\Business;
 use FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertDependencyProvider;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheck;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInFutureCheck;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutor;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManager;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandler;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandlerInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface;
+use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
+use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
 /**
@@ -16,20 +28,19 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandler
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionRequestHandlerInterface
      */
-    public function createSubscriptionRequestHandler()
+    public function createSubscriptionRequestHandler(): SubscriptionRequestHandlerInterface
     {
         return new SubscriptionRequestHandler(
-            $this->createSubscriptionManager(),
-            $this->getQueryContainer()
+            $this->createSubscriptionManager()
         );
     }
 
     /**
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManager
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscriptionManagerInterface
      */
-    protected function createSubscriptionManager()
+    protected function createSubscriptionManager(): SubscriptionManagerInterface
     {
         return new SubscriptionManager(
             $this->getQueryContainer()
@@ -37,56 +48,96 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface
      */
-    public function createSubscribersNotifer()
+    public function createSubscribersNotifer(): SubscribersNotifierInterface
     {
-        $this->getAvalabilityFacade();
-        $this->createMailHandler();
-        $this->getQueryContainer();
-        $this->getConfig()->getMinimalPercentageDifference();
-
         return new SubscribersNotifier(
-            $this->getAvalabilityFacade(),
+            $this->getAvailabilityFacade(),
             $this->createMailHandler(),
             $this->getQueryContainer(),
-            $this->getConfig()->getMinimalPercentageDifference()
+            $this->getConfig()->getMinimalPercentageDifference(),
+            $this->createSubscribersNotifierPluginExecutor()
         );
     }
 
     /**
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler
      */
-    protected function createMailHandler()
+    protected function createMailHandler(): MailHandler
     {
-        $mailHandler = new MailHandler(
+        return new MailHandler(
             $this->getMailFacade(),
             $this->getProductFacade()
         );
-
-        return $mailHandler;
     }
 
     /**
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface
+     */
+    protected function createSubscribersNotifierPluginExecutor(): SubscribersNotifierPluginExecutorInterface
+    {
+        return new SubscribersNotifierPluginExecutor(
+            $this->getSubscribersNotifierPreCheckPlugins()
+        );
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierHasProductAssignedStoresCheckInterface
+     */
+    public function createSubscribersNotifierHasProductAssignedStoresCheck(): SubscribersNotifierHasProductAssignedStoresCheckInterface
+    {
+        return new SubscribersNotifierHasProductAssignedStoresCheck(
+            $this->getProductFacade()
+        );
+    }
+
+    /**
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\PreCheck\SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface
+     */
+    public function createSubscribersNotifierProductAttributeReleaseDateInFutureCheck(): SubscribersNotifierProductAttributeReleaseDateInFutureCheckInterface
+    {
+        return new SubscribersNotifierProductAttributeReleaseDateInFutureCheck(
+            $this->getProductFacade()
+        );
+    }
+
+    /**
+     * @throws
+     *
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface
      */
-    protected function getMailFacade()
+    protected function getMailFacade(): AvailabilityAlertToMailInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_MAIL);
     }
 
     /**
+     * @throws
+     *
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPreCheckPluginInterface[]
+     */
+    protected function getSubscribersNotifierPreCheckPlugins(): array
+    {
+        return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::SUBSCRIBERS_NOTIFIER_PRE_CHECK_PLUGINS);
+    }
+
+    /**
+     * @throws
+     *
      * @return \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface
      */
-    protected function getAvalabilityFacade()
+    protected function getAvailabilityFacade(): AvailabilityFacadeInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_AVAILABILITY);
     }
 
     /**
+     * @throws
+     *
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface
      */
-    protected function getProductFacade()
+    protected function getProductFacade(): AvailabilityAlertToProductInterface
     {
         return $this->getProvidedDependency(AvailabilityAlertDependencyProvider::FACADE_PRODUCT);
     }

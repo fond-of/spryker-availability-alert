@@ -3,7 +3,9 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model;
 
 use DateTime;
+use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
 use Orm\Zed\Store\Persistence\SpyStoreQuery;
@@ -33,27 +35,35 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     protected $minimalPercentageDifference;
 
     /**
+     * @var \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface
+     */
+    protected $subscribersNotifierPluginExecutor;
+
+    /**
      * @param \Spryker\Zed\Availability\Business\AvailabilityFacadeInterface $availabilityFacade
      * @param \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\MailHandler $mailHandler
      * @param \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface $queryContainer
      * @param int $minimalPercentageDifference
+     * @param \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPluginExecutorInterface $subscribersNotifierPluginExecutor
      */
     public function __construct(
         AvailabilityFacadeInterface $availabilityFacade,
         MailHandler $mailHandler,
         AvailabilityAlertQueryContainerInterface $queryContainer,
-        $minimalPercentageDifference
+        $minimalPercentageDifference,
+        SubscribersNotifierPluginExecutorInterface $subscribersNotifierPluginExecutor
     ) {
         $this->availabilityFacade = $availabilityFacade;
         $this->mailHandler = $mailHandler;
         $this->queryContainer = $queryContainer;
         $this->minimalPercentageDifference = $minimalPercentageDifference;
+        $this->subscribersNotifierPluginExecutor = $subscribersNotifierPluginExecutor;
     }
 
     /**
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
+     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface
      */
-    public function notify()
+    public function notify(): SubscribersNotifierInterface
     {
         $countOfSubscriberPerProductAbstract = $this->getCountOfSubscriberPerProductAbstract();
         
@@ -62,10 +72,31 @@ class SubscribersNotifier implements SubscribersNotifierInterface
                 continue;
             }
 
+            $availabilityAlertSubscription = $this->createAvailabilityAlertSubscriptionTransfer($fosAvailabilityAlertSubscription);
+
+            $isPassed = $this->subscribersNotifierPluginExecutor->executePreCheckPlugins($availabilityAlertSubscription);
+            if ($isPassed === false) {
+                continue;
+            }
+
             $this->sendNotification($fosAvailabilityAlertSubscription);
         }
 
         return $this;
+    }
+
+    /**
+     * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
+     */
+    protected function createAvailabilityAlertSubscriptionTransfer(
+        FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
+    ): AvailabilityAlertSubscriptionTransfer {
+        $availabilityAlertSubscriptionTransfer = new AvailabilityAlertSubscriptionTransfer();
+        $availabilityAlertSubscriptionTransfer->fromArray($fosAvailabilityAlertSubscription->toArray(), true);
+
+        return $availabilityAlertSubscriptionTransfer;
     }
 
     /**
@@ -164,7 +195,6 @@ class SubscribersNotifier implements SubscribersNotifierInterface
      */
     protected function getIdStorebyStoreName(string $storeName): int
     {
-
         $storeEntity = SpyStoreQuery::create()
             ->filterByName($storeName)
             ->findOne();

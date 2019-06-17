@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Business;
 
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 
 interface AvailabilityAlertFacadeInterface
@@ -13,12 +14,40 @@ interface AvailabilityAlertFacadeInterface
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
      */
-    public function subscribe(AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer);
+    public function subscribe(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+    ): AvailabilityAlertSubscriptionResponseTransfer;
 
     /**
      * @api
      *
      * @return void
      */
-    public function notifySubscribers();
+    public function notifySubscribers(): void;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return bool
+     */
+    public function preCheckSubscribersNotifierHasProductAssignedStores(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+    ): bool;
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+     *
+     * @return bool
+     */
+    public function preCheckSubscribersNotifierProductAttributeReleaseDateInFuture(
+        AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
+    ): bool;
 }

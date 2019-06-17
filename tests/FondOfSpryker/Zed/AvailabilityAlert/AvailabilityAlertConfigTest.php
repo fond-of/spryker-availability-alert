@@ -42,7 +42,7 @@ class AvailabilityAlertConfigTest extends Unit
     {
         Config::getInstance()->init();
 
-        $this->assertEquals(80, $this->availabilityAlertConfig->getMinimalPercentageDifference());
+        $this->assertEquals(50, $this->availabilityAlertConfig->getMinimalPercentageDifference());
     }
 
     /**

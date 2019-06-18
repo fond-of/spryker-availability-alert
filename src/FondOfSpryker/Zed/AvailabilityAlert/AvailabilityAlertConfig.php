@@ -3,6 +3,7 @@
 namespace FondOfSpryker\Zed\AvailabilityAlert;
 
 use FondOfSpryker\Shared\AvailabilityAlert\AvailabilityAlertConstants;
+use Spryker\Shared\Application\ApplicationConstants;
 use Spryker\Zed\Kernel\AbstractBundleConfig;
 
 class AvailabilityAlertConfig extends AbstractBundleConfig
@@ -15,6 +16,16 @@ class AvailabilityAlertConfig extends AbstractBundleConfig
         return $this->get(
             AvailabilityAlertConstants::MINIMAL_PERCENTAGE_DIFFERENCE,
             AvailabilityAlertConstants::MINIMAL_PERCENTAGE_DIFFERENCE_VALUE
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function getBaseUrlSslYves(): string
+    {
+        return $this->get(
+            ApplicationConstants::BASE_URL_SSL_YVES
         );
     }
 }

@@ -14,11 +14,31 @@ use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 class MailHandler
 {
     /**
+     * @var string
+     */
+    protected $baseUrlSslYves;
+
+    /**
+     * @var \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface
+     */
+    protected $mailFacade;
+
+    /**
+     * @var \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface
+     */
+    protected $productFacade;
+
+    /**
      * @param \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToMailInterface $mailFacade
      * @param \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface $productFacade
+     * @param string $baseUrlSslYves
      */
-    public function __construct(AvailabilityAlertToMailInterface $mailFacade, AvailabilityAlertToProductInterface $productFacade)
-    {
+    public function __construct(
+        AvailabilityAlertToMailInterface $mailFacade,
+        AvailabilityAlertToProductInterface $productFacade,
+        string $baseUrlSslYves
+    ) {
+        $this->baseUrlSslYves = $baseUrlSslYves;
         $this->mailFacade = $mailFacade;
         $this->productFacade = $productFacade;
     }
@@ -60,6 +80,7 @@ class MailHandler
         $mailTransfer->setType(AvailabilityAlertMailTypePlugin::MAIL_TYPE);
         $mailTransfer->setLocalizedUrl($currentLocaleProductUrlTransfer);
         $mailTransfer->setMoneyValue($moneyValueTransfer);
+        $mailTransfer->setBaseUrlSslYves($this->baseUrlSslYves);
 
         $this->mailFacade->handleMail($mailTransfer);
     }

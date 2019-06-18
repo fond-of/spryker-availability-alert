@@ -31,6 +31,7 @@
         <property name="productAbstract" type="ProductAbstract" />
         <property name="localizedUrl" type="LocalizedUrl" />
         <property name="moneyValue" type="MoneyValue" />
+        <property name="baseUrlSslYves" type="string" />
     </transfer>
 </transfers>
 

@@ -70,7 +70,8 @@ class AvailabilityAlertBusinessFactory extends AbstractBusinessFactory
     {
         return new MailHandler(
             $this->getMailFacade(),
-            $this->getProductFacade()
+            $this->getProductFacade(),
+            $this->getConfig()->getBaseUrlSslYves()
         );
     }
 

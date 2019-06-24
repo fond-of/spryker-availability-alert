@@ -30,7 +30,7 @@ class SubscriptionRequestHandler implements SubscriptionRequestHandlerInterface
      */
     public function processAvailabilityAlertSubscription(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
-    ) {
+    ): AvailabilityAlertSubscriptionResponseTransfer {
         $subscriptionResponse = $this->createSubscriptionResponse();
 
         $subscriptionResponse->setIsSuccess(true);

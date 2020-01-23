@@ -31,7 +31,7 @@
             <reference local="fk_product_abstract" foreign="id_product_abstract"/>
         </foreign-key>
 
-        <foreign-key name="fos_availability_-fk_store" foreignTable="spy_store">
+        <foreign-key name="fos_availability-fk_store" foreignTable="spy_store">
             <reference foreign="id_store" local="fk_store"/>
         </foreign-key>
 

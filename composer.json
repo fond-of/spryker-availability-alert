@@ -9,9 +9,9 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
-    "spryker/availability": "^8.0.0",
-    "spryker/product": "^6.14.0"
+    "php": ">=7.2",
+    "spryker/availability": "^9.1.0",
+    "spryker/product": "^6.17.1"
   },
   "require-dev": {
     "spryker/code-sniffer": "^0.14.7",

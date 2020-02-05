@@ -7,7 +7,7 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
 /**
- * @method AvailabilityAlertBusinessFactory getFactory()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertBusinessFactory getFactory()
  */
 class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAlertFacadeInterface
 {
@@ -36,7 +36,7 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -53,7 +53,7 @@ class AvailabilityAlertFacade extends AbstractFacade implements AvailabilityAler
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

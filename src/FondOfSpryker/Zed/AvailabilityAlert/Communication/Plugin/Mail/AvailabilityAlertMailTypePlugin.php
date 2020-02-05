@@ -10,10 +10,12 @@ use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
 /**
  * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertFacade getFacade()
  * @method \FondOfSpryker\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailTypePluginInterface
 {
-    const MAIL_TYPE = 'availability alert mail';
+    public const MAIL_TYPE = 'availability alert mail';
 
     /**
      * @var \FondOfSpryker\Zed\Mail\MailConfig
@@ -21,8 +23,6 @@ class AvailabilityAlertMailTypePlugin extends AbstractPlugin implements MailType
     protected $config;
 
     /**
-     * OrderConfirmationMailTypePlugin constructor.
-     *
      * @param \FondOfSpryker\Zed\Mail\MailConfig $config
      */
     public function __construct(MailConfig $config)

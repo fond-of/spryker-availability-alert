@@ -26,7 +26,7 @@ interface AvailabilityAlertFacadeInterface
     public function notifySubscribers(): void;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *
@@ -39,7 +39,7 @@ interface AvailabilityAlertFacadeInterface
     ): bool;
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

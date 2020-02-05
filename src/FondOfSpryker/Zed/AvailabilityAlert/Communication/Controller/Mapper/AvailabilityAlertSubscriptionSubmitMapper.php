@@ -20,7 +20,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     protected $storeFacade;
 
     /**
-     * @param \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface $localeFacade
+     * @param  \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface  $localeFacade
      */
     public function __construct(
         AvailabilityAlertToLocaleInterface $localeFacade,
@@ -31,7 +31,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
@@ -48,41 +48,41 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
             ->setFkProductAbstract($availabilityAlertSubscriptionRequestTransfer->getIdProductAbstract())
             ->setFkLocale($this->getIdLocale($availabilityAlertSubscriptionRequestTransfer))
             ->setFkStore($this->getIdStore($availabilityAlertSubscriptionRequestTransfer));
-        
+
         return $availabilityAlertSubscriptionTransfer;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
      *
-     * @return string
+     * @return int
      */
     protected function getIdLocale(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
-    ) {
+    ): int {
         return $this->localeFacade->getLocale($availabilityAlertSubscriptionRequestTransfer->getLocaleName())->getIdLocale();
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
      *
-     * @return string
+     * @return int
      */
     protected function getIdStore(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
-    ) {
+    ): int {
 
         return $this->storeFacade->getStore($availabilityAlertSubscriptionRequestTransfer->getStore())->getIdStore();
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
+     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
      *
      * @return void
      */
     protected function assertAvailabilityAlertSubscriptionRequestTransfer(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
-    ) {
+    ): void {
         $availabilityAlertSubscriptionRequestTransfer
             ->requireIdProductAbstract()
             ->requireEmail()

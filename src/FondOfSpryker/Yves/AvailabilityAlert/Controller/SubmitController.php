@@ -2,6 +2,7 @@
 
 namespace FondOfSpryker\Yves\AvailabilityAlert\Controller;
 
+use FondOfSpryker\Yves\AvailabilityAlert\Exception\RequestStackNotExistsException;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -45,7 +46,7 @@ class SubmitController extends AbstractController
         if (!$form->isSubmitted() || !$form->isValid()) {
             return false;
         }
-        
+
         $availabilityAlertSubscriptionResponseTransfer = $this->getFactory()
             ->getAvailabilityAlertClient()
             ->subscribe(

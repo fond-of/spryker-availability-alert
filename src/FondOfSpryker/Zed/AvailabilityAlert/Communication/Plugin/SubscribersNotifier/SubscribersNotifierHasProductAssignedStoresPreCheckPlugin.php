@@ -12,6 +12,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface getFacade()
  * @method \FondOfSpryker\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
  * @method \FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class SubscribersNotifierHasProductAssignedStoresPreCheckPlugin extends AbstractPlugin implements SubscribersNotifierPreCheckPluginInterface
 {

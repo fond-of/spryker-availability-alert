@@ -2,6 +2,8 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade;
 
+use Generated\Shared\Transfer\LocaleTransfer;
+
 class AvailabilityAlertToLocaleBridge implements AvailabilityAlertToLocaleInterface
 {
     /**
@@ -22,7 +24,7 @@ class AvailabilityAlertToLocaleBridge implements AvailabilityAlertToLocaleInterf
      *
      * @return \Generated\Shared\Transfer\LocaleTransfer
      */
-    public function getLocale($localeName)
+    public function getLocale(string $localeName): LocaleTransfer
     {
         return $this->localeFacade->getLocale($localeName);
     }

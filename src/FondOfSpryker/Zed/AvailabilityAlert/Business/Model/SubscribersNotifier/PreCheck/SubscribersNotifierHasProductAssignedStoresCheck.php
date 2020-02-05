@@ -7,7 +7,6 @@ namespace FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
-
 use function count;
 
 class SubscribersNotifierHasProductAssignedStoresCheck implements SubscribersNotifierHasProductAssignedStoresCheckInterface

@@ -7,5 +7,5 @@ interface SubscribersNotifierInterface
     /**
      * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifierInterface
      */
-    public function notify(): SubscribersNotifierInterface;
+    public function notify(): self;
 }

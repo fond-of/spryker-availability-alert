@@ -2,6 +2,8 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade;
 
+use Generated\Shared\Transfer\StoreTransfer;
+
 interface AvailabilityAlertToStoreInterface
 {
     /**
@@ -9,5 +11,5 @@ interface AvailabilityAlertToStoreInterface
      *
      * @return \Generated\Shared\Transfer\StoreTransfer
      */
-    public function getStore($store);
+    public function getStore(string $store): StoreTransfer;
 }

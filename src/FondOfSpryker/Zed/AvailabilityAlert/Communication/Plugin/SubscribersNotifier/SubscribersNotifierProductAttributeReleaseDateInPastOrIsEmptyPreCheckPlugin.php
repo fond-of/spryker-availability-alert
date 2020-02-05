@@ -4,17 +4,15 @@ declare(strict_types = 1);
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\SubscribersNotifier;
 
-use FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig;
-use FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier\SubscribersNotifierPreCheckPluginInterface;
-use FondOfSpryker\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 
 /**
- * @method AvailabilityAlertFacadeInterface getFacade()
- * @method AvailabilityAlertCommunicationFactory getFactory()
- * @method AvailabilityAlertConfig getConfig()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertFacadeInterface getFacade()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Communication\AvailabilityAlertCommunicationFactory getFactory()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\AvailabilityAlertConfig getConfig()
+ * @method \FondOfSpryker\Zed\AvailabilityAlert\Persistence\AvailabilityAlertQueryContainerInterface getQueryContainer()
  */
 class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyPreCheckPlugin extends AbstractPlugin implements SubscribersNotifierPreCheckPluginInterface
 {

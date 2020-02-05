@@ -7,9 +7,9 @@ use SprykerShop\Yves\ShopApplication\Plugin\Provider\AbstractYvesControllerProvi
 
 class AvailabilityAlertControllerProvider extends AbstractYvesControllerProvider
 {
-    const ROUTE_AVAILABILITY_ALERT_SUBMIT = 'availability-alert/submit';
+    public const ROUTE_AVAILABILITY_ALERT_SUBMIT = 'availability-alert/submit';
 
-    const ID_ABSTRACT_PRODUCT_REGEX = '[1-9][0-9]*';
+    public const ID_ABSTRACT_PRODUCT_REGEX = '[1-9][0-9]*';
 
     /**
      * @param \Silex\Application $app

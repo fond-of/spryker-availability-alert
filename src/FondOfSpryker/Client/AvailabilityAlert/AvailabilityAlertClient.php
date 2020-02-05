@@ -11,7 +11,7 @@ use Spryker\Client\Kernel\AbstractClient;
 class AvailabilityAlertClient extends AbstractClient implements AvailabilityAlertClientInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

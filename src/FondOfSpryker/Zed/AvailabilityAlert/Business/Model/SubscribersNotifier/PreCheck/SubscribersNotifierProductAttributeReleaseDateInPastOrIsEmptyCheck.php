@@ -9,7 +9,6 @@ use DateTimeInterface;
 use FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToProductInterface;
 use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Generated\Shared\Transfer\ProductAbstractTransfer;
-
 use function array_key_exists;
 
 class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck implements SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheckInterface
@@ -63,8 +62,6 @@ class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck impleme
     /**
      * @param \Generated\Shared\Transfer\ProductAbstractTransfer $productAbstractTransfer
      *
-     * @throws
-     *
      * @return \DateTimeInterface
      */
     protected function getProductAttributeReleaseDate(ProductAbstractTransfer $productAbstractTransfer): DateTimeInterface
@@ -74,8 +71,6 @@ class SubscribersNotifierProductAttributeReleaseDateInPastOrIsEmptyCheck impleme
 
     /**
      * @param \DateTimeInterface $compareDateTime
-     *
-     * @throws
      *
      * @return bool
      */

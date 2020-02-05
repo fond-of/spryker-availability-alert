@@ -55,6 +55,8 @@ class MailHandler
         $productAbstractTransfer = $this->getProductAbstractTransfer($fosAvailabilityAlertSubscription);
         $productUrlTransfer = $this->productFacade->getProductUrl($productAbstractTransfer);
         $priceProductTransfer = $productAbstractTransfer->getPrices();
+        $currentLocaleProductUrlTransfer = null;
+        $moneyValueTransfer = null;
 
         /** @var \Generated\Shared\Transfer\LocalizedUrlTransfer $localizedUrlTransfer */
         foreach ($productUrlTransfer->getUrls() as $localizedUrlTransfer) {

@@ -9,6 +9,7 @@ use Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer;
 use Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription;
 use Orm\Zed\AvailabilityAlert\Persistence\Map\FosAvailabilityAlertSubscriptionTableMap;
 use Orm\Zed\Store\Persistence\SpyStoreQuery;
+use Spryker\DecimalObject\Decimal;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Zed\Availability\Business\AvailabilityFacadeInterface;
 
@@ -103,11 +104,9 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     /**
      * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @throws
-     *
-     * @return \FondOfSpryker\Zed\AvailabilityAlert\Business\Model\SubscribersNotifier
+     * @return $this
      */
-    protected function sendNotification(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription): SubscribersNotifier
+    protected function sendNotification(FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription)
     {
         $this->mailHandler->sendAvailabilityAlertMail($fosAvailabilityAlertSubscription);
 
@@ -156,11 +155,11 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     /**
      * @param \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
      *
-     * @return int
+     * @return \Spryker\DecimalObject\Decimal|null
      */
     protected function getAvailability(
         FosAvailabilityAlertSubscription $fosAvailabilityAlertSubscription
-    ): ?int {
+    ): ?Decimal {
         $productAbstractAvailability = $this->availabilityFacade->getProductAbstractAvailability(
             $fosAvailabilityAlertSubscription->getFkProductAbstract(),
             $fosAvailabilityAlertSubscription->getFkLocale()
@@ -193,8 +192,6 @@ class SubscribersNotifier implements SubscribersNotifierInterface
 
     /**
      * @param string $storeName
-     *
-     * @throws
      *
      * @return int
      */

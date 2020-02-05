@@ -2,14 +2,12 @@
 
 namespace FondOfSpryker\Yves\AvailabilityAlert;
 
-;
-
 use Spryker\Yves\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Yves\Kernel\Container;
 
 class AvailabilityAlertDependencyProvider extends AbstractBundleDependencyProvider
 {
-    const CLIENT_AVAILABILITY_ALERT = 'CLIENT_AVAILABILITY_ALERT';
+    public const CLIENT_AVAILABILITY_ALERT = 'CLIENT_AVAILABILITY_ALERT';
 
     /**
      * @param \Spryker\Yves\Kernel\Container $container

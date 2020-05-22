@@ -12,6 +12,8 @@ class AvailabilityAlertControllerProvider extends AbstractYvesControllerProvider
     public const ID_ABSTRACT_PRODUCT_REGEX = '[1-9][0-9]*';
 
     /**
+     * @deprecated use FondOfSpryker\Yves\AvailabilityAlert\Plugin\Router\AvailabilityAlertControllerProviderPlugin instead
+     *
      * @param \Silex\Application $app
      *
      * @return void

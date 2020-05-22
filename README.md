@@ -7,3 +7,45 @@
 ```
 composer require fond-of-spryker/availability-alert
 ```
+
+## Configuration
+
+Register
+
+* in src/Pyz/Yves/ShopApplication/ShopApplicationDependencyProvider.php => AvailabilityAlertFormWidget::class
+
+```
+    /**
+     * @return string[]
+     */
+    protected function getGlobalWidgets(): array
+    {
+        return [
+            ...
+            AvailabilityAlertFormWidget::class,
+        ];
+    }
+```
+
+* in src/Pyz/Yves/Router/RouterDependencyProvider.php => AvailabilityAlertControllerProviderPlugin
+
+```
+    /**
+     * @return \Spryker\Yves\RouterExtension\Dependency\Plugin\RouteProviderPluginInterface[]
+     */
+    protected function getRouteProvider(): array
+    {
+        return [
+            ...
+            new AvailabilityAlertControllerProviderPlugin(),
+        ];
+    }
+```
+
+## Usage
+
+Use widget in template
+
+```
+{% widget 'AvailabilityAlertFormWidget' args [data.product.idProductAbstract] %}{% endwidget %}
+```

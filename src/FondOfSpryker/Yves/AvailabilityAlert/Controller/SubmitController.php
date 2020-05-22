@@ -2,11 +2,13 @@
 
 namespace FondOfSpryker\Yves\AvailabilityAlert\Controller;
 
-use FondOfSpryker\Yves\AvailabilityAlert\Exception\RequestStackNotExistsException;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer;
+use Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Yves\Kernel\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -33,6 +35,51 @@ class SubmitController extends AbstractController
         return [
             'subscriptionForm' => $subscriptionForm->createView(),
         ];
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function submitWidgetAction(Request $request): JsonResponse
+    {
+        $formData = $request->request->get('availabilityAlertSubscriptionForm');
+        $subscribed = false;
+        $subscriptionForm = false;
+        if ($formData !== null) {
+            $idProductAbstract = $formData['idProductAbstract'];
+            $subscriptionForm = $this->getFactory()
+                ->createSubscriptionForm($idProductAbstract)->createView();
+
+            $subscribed = $this->registerForAvailabilityAlert($formData);
+        }
+
+        return $this->jsonResponse(
+            [
+                'success' => $subscribed === false ? $subscribed : $subscribed->getIsSuccess(),
+            ]
+        );
+    }
+
+    /**
+     * @param array $formData
+     *
+     * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionResponseTransfer
+     */
+    protected function registerForAvailabilityAlert(array $formData): AvailabilityAlertSubscriptionResponseTransfer
+    {
+        $availabilityAlertSubscriptionRequestTransfer = new AvailabilityAlertSubscriptionRequestTransfer();
+        $availabilityAlertSubscriptionRequestTransfer->setStore(Store::getInstance()->getStoreName());
+        $availabilityAlertSubscriptionRequestTransfer->setEmail($formData['email']);
+        $availabilityAlertSubscriptionRequestTransfer->setIdProductAbstract($formData['idProductAbstract']);
+        $availabilityAlertSubscriptionRequestTransfer->setLocaleName(Store::getInstance()->getCurrentLocale());
+
+        return $this->getFactory()
+            ->getAvailabilityAlertClient()
+            ->subscribe(
+                $availabilityAlertSubscriptionRequestTransfer
+            );
     }
 
     /**

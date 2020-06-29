@@ -67,7 +67,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     public function notify(): SubscribersNotifierInterface
     {
         $countOfSubscriberPerProductAbstract = $this->getCountOfSubscriberPerProductAbstract();
-        
+
         foreach ($this->getSubscritpions() as $fosAvailabilityAlertSubscription) {
             if (!$this->canSendNotification($fosAvailabilityAlertSubscription, $countOfSubscriberPerProductAbstract)) {
                 continue;
@@ -147,7 +147,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
     ) {
         $fkProductAbstract = $fosAvailabilityAlertSubscription->getFkProductAbstract();
         $subscriberCount = $countOfSubscriberPerProductAbstract[$fkProductAbstract];
-        $availability = $this->getAvailability($fosAvailabilityAlertSubscription);
+        $availability = $this->getAvailability($fosAvailabilityAlertSubscription)->toInt();
 
         return $availability * 100 / $subscriberCount;
     }
@@ -204,7 +204,7 @@ class SubscribersNotifier implements SubscribersNotifierInterface
         if ($storeEntity === null) {
             return 0;
         }
-        
+
         return $storeEntity->getIdStore();
     }
 }

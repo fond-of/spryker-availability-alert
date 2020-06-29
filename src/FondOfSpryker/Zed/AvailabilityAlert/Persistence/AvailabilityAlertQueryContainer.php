@@ -58,8 +58,8 @@ class AvailabilityAlertQueryContainer extends AbstractQueryContainer implements 
     }
 
     /**
-     * @param int $status
      * @param int $idStore
+     * @param int $status
      *
      * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery
      */

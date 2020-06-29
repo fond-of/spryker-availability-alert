@@ -29,8 +29,8 @@ interface AvailabilityAlertQueryContainerInterface
     public function querySubscriptionsByStatus($status);
 
     /**
-     * @param int $status
      * @param int $idStore
+     * @param int $status
      *
      * @return \Orm\Zed\AvailabilityAlert\Persistence\FosAvailabilityAlertSubscriptionQuery
      */

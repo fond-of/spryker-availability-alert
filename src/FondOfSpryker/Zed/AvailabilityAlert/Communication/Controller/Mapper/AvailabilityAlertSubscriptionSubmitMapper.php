@@ -20,7 +20,8 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     protected $storeFacade;
 
     /**
-     * @param  \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface  $localeFacade
+     * @param \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToLocaleInterface $localeFacade
+     * @param \FondOfSpryker\Zed\AvailabilityAlert\Dependency\Facade\AvailabilityAlertToStoreInterface $storeFacade
      */
     public function __construct(
         AvailabilityAlertToLocaleInterface $localeFacade,
@@ -31,7 +32,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AvailabilityAlertSubscriptionTransfer
      */
@@ -53,7 +54,7 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return int
      */
@@ -64,19 +65,18 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return int
      */
     protected function getIdStore(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
     ): int {
-
         return $this->storeFacade->getStore($availabilityAlertSubscriptionRequestTransfer->getStore())->getIdStore();
     }
 
     /**
-     * @param  \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer  $availabilityAlertSubscriptionRequestTransfer
+     * @param \Generated\Shared\Transfer\AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
      *
      * @return void
      */

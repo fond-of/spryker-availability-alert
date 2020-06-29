@@ -3,16 +3,19 @@ language: php
 php:
   - 7.2
 
+env:
+  - COMPOSER_MEMORY_LIMIT=-1
+
 cache:
   directories:
     - vendor
     - $HOME/.composer/cache
 
-before_script:
+before_install:
   - phpenv config-rm xdebug.ini
 
 install:
-  - COMPOSER_MEMORY_LIMIT=-1 composer install --no-interaction --prefer-dist
+  - composer install --no-interaction --prefer-dist
 
 script:
   - make test

@@ -19,7 +19,8 @@
     "mikey179/vfsstream": "^1.6",
     "phpro/grumphp": "^0.14",
     "sebastian/phpcpd": "^4.1",
-    "fond-of-codeception/spryker": "dev-master"
+    "fond-of-codeception/spryker": "dev-master",
+    "php-coveralls/php-coveralls": "^2.2"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

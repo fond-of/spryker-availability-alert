@@ -2,6 +2,8 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Communication\Console;
 
+use Exception;
+use Spryker\Shared\Log\LoggerTrait;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,6 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class NotifySubscribersConsole extends Console
 {
+    use LoggerTrait;
+
     public const COMMAND_NAME = 'availabiliy-alert:notify-subscribers';
     public const COMMAND_DESCRIPTION = 'Notify subscribers that products are available again.';
 
@@ -36,10 +40,12 @@ class NotifySubscribersConsole extends Console
     {
         try {
             $this->getFacade()->notifySubscribers();
-        }
-        catch (\Exception $exception){
+        } catch (Exception $exception) {
+            $this->getLogger()->error($exception->getMessage(), $exception->getTrace());
+
             return Console::CODE_ERROR;
         }
+
         return Console::CODE_SUCCESS;
     }
 }

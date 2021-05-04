@@ -2,10 +2,10 @@
 
 namespace FondOfSpryker\Zed\AvailabilityAlert\Communication\Plugin\Mail;
 
-use Spryker\Zed\Mail\MailConfig;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 use Spryker\Zed\Mail\Business\Model\Mail\Builder\MailBuilderInterface;
 use Spryker\Zed\Mail\Dependency\Plugin\MailTypePluginInterface;
+use Spryker\Zed\Mail\MailConfig;
 
 /**
  * @method \FondOfSpryker\Zed\AvailabilityAlert\Business\AvailabilityAlertFacade getFacade()

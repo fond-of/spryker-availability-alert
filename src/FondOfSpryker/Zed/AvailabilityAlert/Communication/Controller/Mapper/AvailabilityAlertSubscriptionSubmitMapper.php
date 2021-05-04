@@ -39,7 +39,6 @@ class AvailabilityAlertSubscriptionSubmitMapper implements AvailabilityAlertSubs
     public function mapRequestTransfer(
         AvailabilityAlertSubscriptionRequestTransfer $availabilityAlertSubscriptionRequestTransfer
     ) {
-
         $this->assertAvailabilityAlertSubscriptionRequestTransfer($availabilityAlertSubscriptionRequestTransfer);
 
         $availabilityAlertSubscriptionTransfer = new AvailabilityAlertSubscriptionTransfer();

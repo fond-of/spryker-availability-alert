@@ -11,6 +11,7 @@
   "require": {
     "php": ">=7.2",
     "spryker/availability": "^9.1.0",
+    "spryker/mail": "^4.6.0",
     "spryker/product": "^6.17.1"
   },
   "require-dev": {

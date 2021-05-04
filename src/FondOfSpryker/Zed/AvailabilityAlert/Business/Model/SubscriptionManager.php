@@ -51,7 +51,6 @@ class SubscriptionManager implements SubscriptionManagerInterface
     public function subscribe(
         AvailabilityAlertSubscriptionTransfer $availabilityAlertSubscriptionTransfer
     ) {
-        
         $availabilityAlertSubscriptionTransfer->requireEmail();
         $availabilityAlertSubscriptionTransfer->requireFkProductAbstract();
         $availabilityAlertSubscriptionTransfer->requireFkLocale();

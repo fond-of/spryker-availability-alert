@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 7.2
+  - 7.3
 
 env:
   - COMPOSER_MEMORY_LIMIT=-1
@@ -11,11 +11,11 @@ cache:
     - vendor
     - $HOME/.composer/cache
 
-before_install:
-  - phpenv config-rm xdebug.ini
-
 install:
   - composer install --no-interaction --prefer-dist
 
 script:
-  - make test
+  - vendor/bin/phpcs src --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml
+
+after_success:
+  - vendor/bin/php-coveralls

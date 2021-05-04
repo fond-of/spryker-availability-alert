@@ -23,6 +23,11 @@ coverage:
 modules:
   enabled:
     - \FondOfCodeception\Module\Spryker
+  config:
+    \FondOfCodeception\Module\Spryker:
+      generate_transfer: false
+      generate_map_classes: false
+      generate_propel_classes: false
 
 env:
   standalone:
